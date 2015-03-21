@@ -1,5 +1,6 @@
 package ui;
 //continue at 41:19
+//TODO testcase for CustomerRecords
 import models.Book;
 import models.BookCatalog;
 import models.Customer;
@@ -15,6 +16,8 @@ public class Main_22_collections {
 		Book book1 = new Book("1", "More Java", "", "", "", 200);
 		Customer customer = new Customer("Mr", "John", "Kelly", "", "", "",
 				1234, GenderType.MALE);
+		Customer customer2 = new Customer("Mrs", "Mary", "Midgeley", "", "", "",
+				1235, GenderType.FEMALE);
 		CustomerRecords customerRecords = new CustomerRecords();
 	
 		Loan loan = new Loan(9999, customer, book1);
@@ -24,15 +27,16 @@ public class Main_22_collections {
 		
 		try {
 			customerRecords.add(customer);
+			customerRecords.add(customer2);
 			System.out.println("Number of registered customers:"+customerRecords.getCustomerRegistry().size());
-			customerRecords.add(customer);
+			//customerRecords.add(customer);
 			//System.out.println("Number of registered customers:"+customerRecords.getCustomerRegistry().size());
 		} 
 		catch (CustomerAlreadyExistsException e) {
 			System.out.println("Customer already exists");
 		}
 		
-//		customerRecords.printCustomerList();
+		customerRecords.printCustomerList();
 //		bc.addBook(book1);
 //		try {
 //			Book found = bc.findBook(book1.getTitle());
