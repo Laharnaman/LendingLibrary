@@ -1,17 +1,18 @@
 package models;
-//chapter 22 carry on from 6:15. 
+//chapter 22 carry on xxx
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public class BookCatalog {
 	//private LinkedHashMap<String, Book> bookCatalog ;
-	private LinkedHashMap<String, Book> bookCatalog;
+	private TreeMap<String, Book> bookCatalog;
 	
 	public BookCatalog() {
 		//bookCatalog = new LinkedHashMap<String, Book>();
-		bookCatalog = new LinkedHashMap<String, Book>();
+		bookCatalog = new TreeMap<String, Book>();
 	}
-	public LinkedHashMap<String,Book> getBookMap() {
+	public TreeMap<String,Book> getBookMap() {
 		return bookCatalog;
 	}
 

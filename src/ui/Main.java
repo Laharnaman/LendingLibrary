@@ -1,9 +1,13 @@
 package ui;
 //update from red linux
-import java.util.LinkedHashMap;
-
 import models.Book;
 import models.BookCatalog;
+import models.BookNotFoundException;
+import models.Customer;
+import models.Loan;
+import models.LoanAlreadyExistsException;
+import models.LoansRegistry;
+import utilities.GenderType;
 
 public class Main {
 
@@ -35,59 +39,59 @@ public class Main {
 		ui.printHeader();
 		ui.printBookCatalog(bookCatalog.getBookMap());
 
-//		try {
-//			Book foundBook = bookCatalog.findBook("Better");
-//			System.out.println("We found " + foundBook.getTitle());
-//		}
-//		catch (BookNotFoundException e) {
-//			System.out.println("The book wasn't found");
-//		}
+		try {
+			Book foundBook = bookCatalog.findBook("Better");
+			System.out.println("We found " + foundBook.getTitle());
+		}
+		catch (BookNotFoundException e) {
+			System.out.println("The book wasn't found");
+		}
+
+		int myTest = 1;
+
+		try {
+			if (myTest != 2) {
+				throw new RuntimeException("Something went wrong");
+			}
+		}
+		catch (RuntimeException e) {
+			// do nothing here so that we can continue;
+		}
+		
+		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
+		System.out.println(customer.getExpiryDate());
+		System.out.println(customer.getMailingName());
+
+//		System.out.println(customer);
+//		System.out.println(dvd1);
 //
-//		int myTest = 1;
-//
-//		try {
-//			if (myTest != 2) {
-//				throw new RuntimeException("Something went wrong");
-//			}
-//		}
-//		catch (RuntimeException e) {
-//			// do nothing here so that we can continue;
-//		}
-//		
-//		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
-//		System.out.println(customer.getExpiryDate());
-//		System.out.println(customer.getMailingName());
-//
-////		System.out.println(customer);
-////		System.out.println(dvd1);
-////
-////		System.out.println(dvd1.equals(dvd2));
-////		System.out.println(customer.equals(customer));
-//		
-//		Loan firstLoan = new Loan(1,customer,book1);
-//		System.out.println(firstLoan.getDueDate());
-//		System.out.println(firstLoan);
-//		
-//		LoansRegistry registry = new LoansRegistry();
-//		try {	
-//			registry.addLoan(firstLoan);
-//			System.out.println("addLoan worked");
-//			}
-//		catch (LoanAlreadyExistsException e) {
-//			System.out.println("addLoan failed");
-//		}
-//		
-//		try {	
-//			registry.addLoan(firstLoan);
-//			System.out.println("addLoan worked");
-//			}
-//		catch (LoanAlreadyExistsException e) {
-//			System.out.println("addLoan failed");
-//		}
-//		
-//		System.out.println(registry.isBookOnLoan(book1.getID()));
-//		firstLoan.endLoan();
-//		System.out.println(registry.isBookOnLoan(book1.getID()));
+//		System.out.println(dvd1.equals(dvd2));
+//		System.out.println(customer.equals(customer));
+		
+		Loan firstLoan = new Loan(1,customer,book1);
+		System.out.println(firstLoan.getDueDate());
+		System.out.println(firstLoan);
+		
+		LoansRegistry registry = new LoansRegistry();
+		try {	
+			registry.addLoan(firstLoan);
+			System.out.println("addLoan worked");
+			}
+		catch (LoanAlreadyExistsException e) {
+			System.out.println("addLoan failed");
+		}
+		
+		try {	
+			registry.addLoan(firstLoan);
+			System.out.println("addLoan worked");
+			}
+		catch (LoanAlreadyExistsException e) {
+			System.out.println("addLoan failed");
+		}
+		
+		System.out.println(registry.isBookOnLoan(book1.getID()));
+		firstLoan.endLoan();
+		System.out.println(registry.isBookOnLoan(book1.getID()));
 	}
 
 }
