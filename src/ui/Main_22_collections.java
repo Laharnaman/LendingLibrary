@@ -1,8 +1,6 @@
 package ui;
-//continue at 41:19
-//TODO testcase for CustomerRecords
+
 import models.Book;
-import models.BookCatalog;
 import models.Customer;
 import models.CustomerAlreadyExistsException;
 import models.CustomerRecords;
@@ -22,7 +20,6 @@ public class Main_22_collections {
 	
 		Loan loan = new Loan(9999, customer, book1);
 		LoansRegistry loanRegistry = new LoansRegistry();
-		BookCatalog bc = new BookCatalog();
 
 		
 		try {

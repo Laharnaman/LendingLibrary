@@ -37,11 +37,6 @@ public class UI {
 		return fixLengthString(startString, length);
 	}
 
-	public void printBookCatalog(TreeMap<String, Book> hashMap) {
-		for(Book nextBook: hashMap.values()){
-			printBook(nextBook);
-		}
-	}
 	
 	public void printMaterialCatalog(TreeMap<String, Material> hashMap) {
 		for(Material next: hashMap.values()){

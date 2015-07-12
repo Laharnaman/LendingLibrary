@@ -27,5 +27,9 @@ public class MaterialCatalog {
 		}
 		throw new MaterialNotFoundException();
 	}
+
+	public int getNumberOfMaterials() {
+		return this.getMaterialMap().size();
+	}
 	
 }
