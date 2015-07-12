@@ -7,18 +7,18 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import models.Book;
 import models.Material;
-import models.MaterialCatalog;
+import models.MaterialCatalogMemoryVersion;
 import models.MaterialNotFoundException;
 
 import org.junit.Test;
 
 public class MaterialCatalogTest {
-	private MaterialCatalog bc;
+	private MaterialCatalogMemoryVersion bc;
 	private Book book1;
 
 	public MaterialCatalogTest() {
 		book1 = new Book("1", "Learning Java", "", "", "", 300);
-		bc = new MaterialCatalog();
+		bc = new MaterialCatalogMemoryVersion();
 		bc.addMaterial(book1);
 		// System.out.println("constructor run");
 	}

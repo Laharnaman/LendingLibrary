@@ -9,7 +9,8 @@ import models.Loan;
 import models.LoanAlreadyExistsException;
 import models.LoansRegistry;
 import models.Material;
-import models.MaterialCatalog;
+import models.MaterialCatalogInterface;
+import models.MaterialCatalogMemoryVersion;
 import models.MaterialNotFoundException;
 import utilities.GenderType;
 
@@ -17,8 +18,11 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		MaterialCatalog materialCatalog = new MaterialCatalog();
-
+		
+		
+		MaterialCatalogInterface materialCatalog = new MaterialCatalogMemoryVersion();
+		
+		
 		Book book1 = new Book("5001","An introduction to Java","Matt Greencroft","12345","Anytown Branch", 400);
 		Book book2 = new Book("323x","Better Java","Joe Le Blanc","23456","Anytown Branch",150);
 		Book book6 = new Book("620","Les Miserables 6","Jule Verne","","ANy town",200);

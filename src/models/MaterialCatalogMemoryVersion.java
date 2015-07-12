@@ -2,11 +2,11 @@ package models;
 
 import java.util.TreeMap;
 
-public class MaterialCatalog {
+public class MaterialCatalogMemoryVersion implements MaterialCatalogInterface {
 
 	private TreeMap<String, Material> materialMap;
 	
-	public MaterialCatalog () {
+	public MaterialCatalogMemoryVersion () {
 		materialMap=new TreeMap<String, Material>();
 		
 	}

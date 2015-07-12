@@ -1,7 +1,7 @@
 import models.Book;
 import models.DVD;
 import models.Material;
-import models.MaterialCatalog;
+import models.MaterialCatalogMemoryVersion;
 import models.MaterialNotFoundException;
 
 
@@ -9,7 +9,7 @@ public class MaterialCatalogTest {
 
 	public static void main(String[] args)  {
 		//git test staging 
-		MaterialCatalog materialCatalog = new MaterialCatalog();
+		MaterialCatalogMemoryVersion materialCatalog = new MaterialCatalogMemoryVersion();
 		Book newBook = new Book("3456","Java Interfaces","Bob kelly","232323","Local Branch",300);
 		DVD newDVD = new DVD("D123","DVD Java Demos", "Central", "Bob Kelly", "D12345",60);
 		
