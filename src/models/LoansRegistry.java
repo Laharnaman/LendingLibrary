@@ -20,7 +20,7 @@ public class LoansRegistry {
 
 		//Add to registry if you get this far
 		registry.add(loan);
-		System.out.println(loan.toString());
+		//System.out.println(loan.toString());
 	}
 
 	public Loan findLoan(String bookID) throws LoanNotFoundException {

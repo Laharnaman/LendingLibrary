@@ -1,49 +1,62 @@
 package ui;
-//update from red linux
+// continue at 30:54
 import models.Book;
-import models.BookCatalog;
-import models.BookNotFoundException;
 import models.Customer;
+import models.CustomerAlreadyExistsException;
+import models.CustomerRecords;
+import models.DVD;
 import models.Loan;
 import models.LoanAlreadyExistsException;
 import models.LoansRegistry;
+import models.Material;
+import models.MaterialCatalog;
+import models.MaterialNotFoundException;
 import utilities.GenderType;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		BookCatalog bookCatalog = new BookCatalog();
+		MaterialCatalog materialCatalog = new MaterialCatalog();
 
-		Book book1 = new Book("1001","An introduction to Java","Matt Greencroft","12345","Anytown Branch", 400);
-		Book book2 = new Book("223x","Better Java","Joe Le Blanc","23456","Anytown Branch",150);
-		Book book3 = new Book("3120","Les Miserables","Jule Verne","","ANy town",200);
-		Book book4 = new Book("4xx4","Les Miserables 2","Jule Verne","","ANy town",200);
-		Book book5 = new Book("54xx","Les Miserables 3","Jule Verne","","ANy town",200);
-//		DVD dvd1 = new DVD("3","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
-//		DVD dvd2 = new DVD("3","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
+		Book book1 = new Book("5001","An introduction to Java","Matt Greencroft","12345","Anytown Branch", 400);
+		Book book2 = new Book("323x","Better Java","Joe Le Blanc","23456","Anytown Branch",150);
+		Book book6 = new Book("620","Les Miserables 6","Jule Verne","","ANy town",200);
+		Book book3 = new Book("220","Les Miserables 1","Jule Verne","","ANy town",200);
+		Book book4 = new Book("14x","Les Miserables 2","Jule Verne","","ANy town",200);
+		Book book5 = new Book("34","Les Miserables 3","Jule Verne","","ANy town",200);
+		DVD dvd1 = new DVD("D12","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
+		DVD dvd2 = new DVD("D13","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
 //
 //		System.out.println(dvd1.getTitle());
 //		book1.relocate("MyCity branch");
 
 
-		bookCatalog.addBook(book1);
-		bookCatalog.addBook(book2);
-		bookCatalog.addBook(book3);
-		bookCatalog.addBook(book4);
-		bookCatalog.addBook(book5);
+		materialCatalog.addMaterial(book1);
+		materialCatalog.addMaterial(book2);
+		materialCatalog.addMaterial(book6);
+		materialCatalog.addMaterial(book3);
+		materialCatalog.addMaterial(book4);
+		materialCatalog.addMaterial(book5);
+		materialCatalog.addMaterial(dvd1);
+		materialCatalog.addMaterial(dvd2);
 		
+		// Create customers
+		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
+		Customer customer2 = new Customer("Mr", "John", "Kelly", "53 Sultan Street","1234","a@b.com",1,GenderType.MALE);
+		Customer customer3 = new Customer("Mrs", "Mary", "Kelly", "53 Sultan Street","1234","a@b.com",1,GenderType.FEMALE);
 
 
 		UI ui = new UI();
 		ui.printHeader();
-		ui.printBookCatalog(bookCatalog.getBookMap());
+		System.out.println("\nPrinting material catalog");
+		ui.printMaterialCatalog(materialCatalog.getMaterialMap());
 
 		try {
-			Book foundBook = bookCatalog.findBook("Better");
-			System.out.println("We found " + foundBook.getTitle());
+			Material foundMaterial = materialCatalog.findMaterial("Better Java");
+			System.out.println("We found " + foundMaterial.getTitle());
 		}
-		catch (BookNotFoundException e) {
+		catch (MaterialNotFoundException e) {
 			System.out.println("The book wasn't found");
 		}
 
@@ -58,7 +71,7 @@ public class Main {
 			// do nothing here so that we can continue;
 		}
 		
-		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
+		
 		System.out.println(customer.getExpiryDate());
 		System.out.println(customer.getMailingName());
 
@@ -72,6 +85,7 @@ public class Main {
 		System.out.println(firstLoan.getDueDate());
 		System.out.println(firstLoan);
 		
+		System.out.println("\nAdding a new loan------------------");
 		LoansRegistry registry = new LoansRegistry();
 		try {	
 			registry.addLoan(firstLoan);
@@ -80,7 +94,7 @@ public class Main {
 		catch (LoanAlreadyExistsException e) {
 			System.out.println("addLoan failed");
 		}
-		
+		System.out.println("\nAdding the same loan(should fail)------------------");
 		try {	
 			registry.addLoan(firstLoan);
 			System.out.println("addLoan worked");
@@ -89,9 +103,29 @@ public class Main {
 			System.out.println("addLoan failed");
 		}
 		
-		System.out.println(registry.isBookOnLoan(book1.getID()));
+		System.out.println("\nTest if book is on loan:" + registry.isBookOnLoan(book1.getID()));
+		System.out.println("\nEnd the loan:");
 		firstLoan.endLoan();
-		System.out.println(registry.isBookOnLoan(book1.getID()));
+		System.out.println("\nTest if book was returned:" + registry.isBookOnLoan(book1.getID()));
+		System.out.println("Is book still on loan: "+registry.isBookOnLoan(book1.getID()));
+		
+		System.out.println("\nAdd customer to customer registry");
+		CustomerRecords customerRegistry = new CustomerRecords();
+		try {
+			customerRegistry.add(customer);
+			System.out.println("Info: Customer successfully added to registry");
+		} catch (CustomerAlreadyExistsException e) {
+			System.out.println("Warning: Customer already exists");
+		}
+		
+		System.out.println("\nAdd SAME customer to customer registry");
+		try {
+			customerRegistry.add(customer);
+			System.out.println("Info: Customer successfully added to registry");
+		} catch (CustomerAlreadyExistsException e) {
+			System.out.println("Warning: Customer already exists");
+		}
+		
 	}
 
 }

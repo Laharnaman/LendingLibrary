@@ -31,5 +31,9 @@ public class Book extends Material {
 	public int getLoanPeriod() {
 		return 21;
 	}
+	@Override
+	public String toString() {
+		return "Book: " + getID() + " " + getTitle() + "/ " + getAuthor();
+	}
 	
 }

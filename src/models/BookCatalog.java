@@ -1,28 +1,35 @@
 package models;
-//chapter 22 carry on xxx
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+
 import java.util.TreeMap;
 
+//chapter 22 carry on xxx
+
 public class BookCatalog {
-	//private LinkedHashMap<String, Book> bookCatalog ;
-	private TreeMap<String, Book> bookCatalog;
-	
+	// private LinkedHashMap<String, Book> bookCatalog ;
+	// private TreeMap<String, Book> bookCatalog;
+
+	private TreeMap<String, Book> bookMap;
+
 	public BookCatalog() {
-		//bookCatalog = new LinkedHashMap<String, Book>();
-		bookCatalog = new TreeMap<String, Book>();
+		super();
+		bookMap = new TreeMap<String, Book>();
 	}
-	public TreeMap<String,Book> getBookMap() {
-		return bookCatalog;
+
+	public BookCatalog(Book book) {
+		bookMap.put(book.getID(), book);
+	}
+
+	public TreeMap<String, Book> getBookMap() {
+		return bookMap;
 	}
 
 	public void addBook(Book newBook) {
-		bookCatalog.put(newBook.getID(), newBook);
+		bookMap.put(newBook.getID(), newBook);
 	}
 
 	public Book findBook(int id) throws BookNotFoundException {
-		//TODO implement findBook with String arg.
-		Book found = bookCatalog.get(id);
+		// TODO implement findBook with String arg.
+		Book found = bookMap.get(new Integer(id));
 		if (found == null) {
 			throw new BookNotFoundException();
 		} else {
@@ -31,16 +38,16 @@ public class BookCatalog {
 	}
 
 	public Book findBook(String title) throws BookNotFoundException {
-		for (Book next: bookCatalog.values()) {
-			if(next.getTitle().equalsIgnoreCase(title.trim())) {
+		for (Book next : bookMap.values()) {
+			if (next.getTitle().equalsIgnoreCase(title.trim())) {
 				return next;
 			}
 		}
 		throw new BookNotFoundException();
 	}
-	
+
 	public int getNumberOfBooks() {
-		return bookCatalog.size();
+		return bookMap.size();
 	}
 
 }

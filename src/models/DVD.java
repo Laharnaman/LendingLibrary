@@ -32,4 +32,18 @@ public class DVD extends Material {
 	public int getLoanPeriod() {
 		return 7;
 	}
+	
+	@Override
+	public String toString() {
+		return "DVD: " + getID() + " " + getTitle() + "/ " + getDirector();
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
 }
