@@ -3,13 +3,37 @@ package models;
 public class DVD extends Material {
 
 	private String director;
+	public String getCatalogNo()
+	{
+		return catalogNo;
+	}
+
+	public int getRunningTime()
+	{
+		return runningTime;
+	}
+
+	public boolean getLicenced()
+	{
+		return licenced;
+	}
+
 	private String catalogNo;
 	private int runningTime;
 	private boolean licenced;
 	
 	public DVD(String id, String title, String branch, String director,
 			String catalogNo, int runningTime) {
-		super(id, title, branch);
+		super(id,  title, branch);
+		this.director = director;
+		this.catalogNo = catalogNo;
+		this.runningTime = runningTime;
+		licenced = false;
+	}
+	
+	public DVD(String id, String barcode, String title, String catalogNo, int runningTime, boolean licenced, String branch) {
+		super(id, barcode,title, branch);
+				
 		this.director = director;
 		this.catalogNo = catalogNo;
 		this.runningTime = runningTime;

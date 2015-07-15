@@ -6,6 +6,12 @@ public abstract class Material {
 	private String title;
 	private String branch;
 	private Customer borrower;
+	private String barcode;
+
+	public String getBarcode()
+	{
+		return barcode;
+	}
 
 	public Material(String id, String title, String branch) {
 		this.id = id;
@@ -13,12 +19,25 @@ public abstract class Material {
 		this.branch = branch;
 	}
 
+	public Material(String id, String barcode, String title, String branch) {
+		this.id = id;
+		this.title = title;
+		this.branch = branch;
+		this.barcode=barcode;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
 
 	public String getID() {
 		return id;
+	}
+
+
+	public String getBranch()
+	{
+		return branch;
 	}
 
 	public void relocate(String newBranch) {
@@ -39,7 +58,7 @@ public abstract class Material {
 
 	@Override
 	public String toString() {
-		return id + ":"+title;
+		return "ID="+id + "TITLE:"+title+"BARCODE:"+ barcode;
 	}
 
 	@Override

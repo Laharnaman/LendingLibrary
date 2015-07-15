@@ -9,8 +9,8 @@ import models.Loan;
 import models.LoanAlreadyExistsException;
 import models.LoansRegistry;
 import models.Material;
+import models.MaterialCatalogDatabaseVersion;
 import models.MaterialCatalogInterface;
-import models.MaterialCatalogMemoryVersion;
 import models.MaterialNotFoundException;
 import utilities.GenderType;
 
@@ -20,30 +20,33 @@ public class Main {
 
 		
 		
-		MaterialCatalogInterface materialCatalog = new MaterialCatalogMemoryVersion();
+		MaterialCatalogInterface materialCatalog = new MaterialCatalogDatabaseVersion();
 		
 		
-		Book book1 = new Book("5001","An introduction to Java","Matt Greencroft","12345","Anytown Branch", 400);
-		Book book2 = new Book("323x","Better Java","Joe Le Blanc","23456","Anytown Branch",150);
-		Book book6 = new Book("620","Les Miserables 6","Jule Verne","","ANy town",200);
-		Book book3 = new Book("220","Les Miserables 1","Jule Verne","","ANy town",200);
-		Book book4 = new Book("14x","Les Miserables 2","Jule Verne","","ANy town",200);
-		Book book5 = new Book("34","Les Miserables 3","Jule Verne","","ANy town",200);
-		DVD dvd1 = new DVD("D12","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
-		DVD dvd2 = new DVD("D13","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
+		Book book1 = new Book("5002","An introduction to Java","Matt Greencroft","12345","Anytown Branch", 400);
+		Book book2 = new Book("323x2","Better Java","Joe Le Blanc","23456","Anytown Branch",150);
+		Book book6 = new Book("6202","Les Miserables 6","Jule Verne","","ANy town",200);
+		Book book3 = new Book("2202","Les Miserables 1","Jule Verne","","ANy town",200);
+		Book book4 = new Book("14x2","Les Miserables 2","Jule Verne","","ANy town",200);
+		Book book5 = new Book("342","Les Miserables 3","Jule Verne","","ANy town",200);
+		DVD dvd1 = new DVD("D122","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
+		DVD dvd2 = new DVD("D132","An Epic Film About Java","Anytown Branch","Stephen Spielberg","99887",120);
 //
 //		System.out.println(dvd1.getTitle());
 //		book1.relocate("MyCity branch");
 
 
-		materialCatalog.addMaterial(book1);
-		materialCatalog.addMaterial(book2);
-		materialCatalog.addMaterial(book6);
-		materialCatalog.addMaterial(book3);
-		materialCatalog.addMaterial(book4);
-		materialCatalog.addMaterial(book5);
-		materialCatalog.addMaterial(dvd1);
-		materialCatalog.addMaterial(dvd2);
+//		materialCatalog.addMaterial(book1);
+//		materialCatalog.addMaterial(book2);
+//		materialCatalog.addMaterial(book6);
+//		materialCatalog.addMaterial(book3);
+//		materialCatalog.addMaterial(book4);
+//		materialCatalog.addMaterial(book5);
+//		materialCatalog.addMaterial(dvd1);
+//		materialCatalog.addMaterial(dvd2);
+		
+		
+		System.out.println("there are "+ materialCatalog.getNumberOfMaterials() + " items in the library");
 		
 		// Create customers
 		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
