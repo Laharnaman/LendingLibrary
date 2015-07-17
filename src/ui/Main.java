@@ -46,7 +46,7 @@ public class Main {
 //		materialCatalog.addMaterial(dvd2);
 		
 		
-		System.out.println("there are "+ materialCatalog.getNumberOfMaterials() + " items in the library");
+//		System.out.println("there are "+ materialCatalog.getNumberOfMaterials() + " items in the library");
 		
 		// Create customers
 		Customer customer = new Customer("Mr", "Michael", "Smith", "1 The High Street","1234","a@b.com",1,GenderType.MALE);
@@ -59,13 +59,13 @@ public class Main {
 		System.out.println("\nPrinting material catalog");
 		ui.printMaterialCatalog(materialCatalog.getMaterialMap());
 
-		try {
-			Material foundMaterial = materialCatalog.findMaterial("Better Java");
-			System.out.println("We found " + foundMaterial.getTitle());
-		}
-		catch (MaterialNotFoundException e) {
-			System.out.println("The book wasn't found");
-		}
+//		try {
+//			Material foundMaterial = materialCatalog.findMaterial("Better Java");
+//			System.out.println("We found " + foundMaterial.getTitle());
+//		}
+//		catch (MaterialNotFoundException e) {
+//			System.out.println("The book wasn't found");
+//		}
 
 		int myTest = 1;
 

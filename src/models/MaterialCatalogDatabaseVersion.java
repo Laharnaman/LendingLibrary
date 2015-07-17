@@ -15,22 +15,31 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 
 	private TreeMap<String, Material> materialMap;
 
+	private DBConnectionManager dbConnectionManager;
+	 
+	public MaterialCatalogDatabaseVersion()
+	{
+		materialMap = new TreeMap<String, Material>();
+		try
+		{
+			Class.forName("org.apache.derby.jdbc.ClientDriver");
+		} catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		dbConnectionManager = new DBConnectionManagerImpl();
+	}
+
 	public int getNoOfMaterials()
 	{
 		return noOfMaterials;
 	}
 
-	public MaterialCatalogDatabaseVersion()
-	{
-		materialMap = new TreeMap<String, Material>();
-	}
-
-
 	public void printAllMaterials() {
 		try
 		{
 			String sql = "select id, barcode, title, author, catalognumber,runningtime,licenced,branch,type from materials order by id ";
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
 
 			try (Connection conn = DriverManager
 					.getConnection("jdbc:derby://localhost/library"))
@@ -48,10 +57,7 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 
 				}
 					}
-		} catch (ClassNotFoundException e)
-		{
-			System.out.println(e);
-		} catch (SQLException e)
+		}  catch (SQLException e)
 		{
 			System.out.println(e);
 		}
@@ -87,32 +93,27 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 	@Override
 	public TreeMap<String, Material> getMaterialMap()
 	{
+		
 		String sql = "select * from materials";
 		// get all materials
 		try {
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
 
-			try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost/library")) {
-				try (Statement stm = conn.createStatement()) {
-					try (ResultSet rs = stm.executeQuery(sql)) {
-						while (rs.next() ) {
-							Material nextMaterial = createMaterial(rs);
-							this.materialMap.put(nextMaterial.getID(), nextMaterial);
-						}
-
-					} catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				return materialMap;
+			ResultSet rs = dbConnectionManager.getQueryResults(sql);
+			
+			while (rs.next())
+			{
+				Material nextMaterial = createMaterial(rs);
+				this.materialMap.put(nextMaterial.getID(), nextMaterial);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			dbConnectionManager.closeConnection();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return materialMap;
 
 	}
 
@@ -122,11 +123,9 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 	{
 		Material materialToCreate=null;
 		if (rs.getString("type").equals("BOOK")) {
-			System.out.println("found a book");
 			materialToCreate = new Book(rs.getString("id"),rs.getString("barcode"), 
 					rs.getString("title"), rs.getString("author"), rs.getString("isbn"), rs.getInt("numberOfPages"), rs.getString("branch"));
 		} else if (rs.getString("type").equals("DVD")) {
-			System.out.println("found a DVD");
 			materialToCreate = new DVD(rs.getString("id"), rs.getString("barcode"), rs.getString("title"), rs.getString("catalognumber"), 
 					rs.getInt("runningtime"), rs.getBoolean("licenced"), rs.getString("branch"));
 
@@ -145,8 +144,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 
 		try {
 
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
-
 			try (Connection conn = DriverManager
 					.getConnection("jdbc:derby://localhost/library")) {
 				try (Statement stm = conn.createStatement()) {
@@ -162,8 +159,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 				}
 				return materialFound;
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -184,8 +179,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 
 		try {
 
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
-
 			try (Connection conn = DriverManager
 					.getConnection("jdbc:derby://localhost/library")) {
 				try (Statement stm = conn.createStatement()) {
@@ -198,8 +191,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 				}
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -209,8 +200,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 	public void addBookToDB(String sql, Book newBook) {
 		try
 		{
-
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
 
 			try (Connection conn = DriverManager
 					.getConnection("jdbc:derby://localhost/library"))
@@ -230,9 +219,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 					System.out.println("records amended : " + results);
 				}
 					}
-		} catch (ClassNotFoundException e)
-		{
-			System.out.println(e);
 		} catch (SQLException e)
 		{
 			System.out.println(e);
@@ -242,8 +228,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 	public void addDVDToDB(String sql, DVD newDVD) {
 		try
 		{
-
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
 
 			try (Connection conn = DriverManager
 					.getConnection("jdbc:derby://localhost/library"))
@@ -263,9 +247,6 @@ public class MaterialCatalogDatabaseVersion implements MaterialCatalogInterface
 					System.out.println("records added : " + results);
 				}
 					}
-		} catch (ClassNotFoundException e)
-		{
-			System.out.println(e);
 		} catch (SQLException e)
 		{
 			System.out.println(e);
